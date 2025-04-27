@@ -1,0 +1,74 @@
+# Fitness Tracker - Windows Forms Application
+
+## Overview
+
+The Fitness Tracker is a simple Windows desktop application built using **C#** and **Windows Forms** (.NET 8).  
+It allows users to **register an account**, **log in**, **track their fitness activities**, and **set daily calorie goals**.  
+The app also provides **basic analytics** for calories burned and activity breakdown.
+
+---
+
+## Features
+
+- User Registration and Login
+- Placeholder system for better user experience in input fields
+- Dynamic Activity Logging (Running, Swimming, Walking, etc.)
+- Calorie Burn Calculation based on selected activity and input
+- Dashboard Overview:
+  - Daily Calorie Goal
+  - Total Calories Burned
+  - Recent Activities List
+  - Activity Breakdown
+- Goal Reset Functionality
+- Navigation between pages (Login ➔ Register ➔ Dashboard ➔ Activity Logging)
+- Basic input validation and simple error handling
+
+---
+
+## Technologies Used
+
+- **Visual Studio 2022 Community Edition**
+- **C# (.NET 8, Windows Forms App)**
+- **Windows Forms Controls** (Buttons, Labels, TextBoxes, ComboBoxes, ListBox)
+
+---
+
+## How to Build and Run
+
+1. Clone or download the project repository.
+2. Open the `.sln` file with **Visual Studio 2022**.
+3. Make sure you have `.NET 8.0 SDK` installed.
+4. Build the solution (`Ctrl+Shift+B`).
+5. Run the application (`F5`).
+
+---
+
+## Folder Structure
+
+```
+/Models         --> Contains classes like User.cs and ActivityLog.cs
+/Services       --> Contains business logic like UserService.cs and AnalyticsService.cs
+/Views          --> Contains forms like LoginForm, RegisterForm, DashboardForm, ActivityForm
+FitnessTracker.sln
+Program.cs
+
+
+![folder structure](image.png)
+```
+
+---
+
+## Known Challenges
+
+- Originally started the project using AvaloniaUI in VS Code, later rebuilt in Windows Forms as per lecturer’s instruction.
+- Faced project file corruption issues after unexpected shutdown (resolved by creating a fresh project and migrating code).
+- Some UI limitations due to the basic design capabilities of WinForms compared to modern frameworks.
+- Encountered file lock issues during builds, resolved by restarting the PC.
+- Switched between manual UI design and Drag-and-Drop designer balancing speed vs control.
+
+---
+
+## Credits
+
+Developed by **Egede Ubeath Solomon**  
+Course Assignment - Fitness Tracking Desktop Application
