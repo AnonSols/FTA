@@ -13,6 +13,10 @@ namespace FitnessTracker.Views
             InitializeComponent();
             LoadDashboard();
             ApplyDarkTheme();
+
+            this.MinimumSize = new Size(1024, 768); 
+            this.StartPosition = FormStartPosition.CenterScreen;
+
         }
 
         private void LoadDashboard()

@@ -164,8 +164,8 @@ namespace FitnessTracker.Views
         private void btnBackToDashboard_Click(object sender, EventArgs e)
         {
 
-            DashboardForm dashB = new();
-            dashB.Show();
+            var dashboard = new DashboardForm();
+            dashboard.Show();
             this.Hide();
         }
     }
