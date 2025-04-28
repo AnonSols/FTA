@@ -9,8 +9,6 @@
 bin/
 obj/
 
-# Ignore Designer-generated settings
-*.Designer.cs
 
 # Others
 *.log

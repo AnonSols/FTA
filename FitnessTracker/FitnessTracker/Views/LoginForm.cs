@@ -18,10 +18,45 @@ namespace FitnessTracker.Views
         public LoginForm()
         {
             InitializeComponent();
+
             TxtUsername.Text = "Enter your username";
             TxtUsername.ForeColor = Color.Gray;
             TxtPassword.Text = "Enter your password";
             TxtPassword.ForeColor = Color.Gray;
+
+            ApplyDarkTheme();
+        }
+
+        private void ApplyDarkTheme()
+        {
+            this.BackColor = ColorTranslator.FromHtml("#1E1E1E"); // Form Background
+
+            foreach (Control ctrl in this.Controls)
+            {
+                if (ctrl is Label lbl)
+                {
+                    lbl.ForeColor = ColorTranslator.FromHtml("#CCCCCC"); // Light Gray for labels
+                }
+                else if (ctrl is TextBox txt)
+                {
+                    txt.BackColor = ColorTranslator.FromHtml("#2D2D30"); // Dark background
+                    txt.ForeColor = Color.White;                        // White text
+                    txt.TextAlign = HorizontalAlignment.Center;         // Center text (especially placeholders)
+                    txt.BorderStyle = BorderStyle.FixedSingle;           // Neat borders
+                }
+                else if (ctrl is Button btn)
+                {
+                    btn.BackColor = ColorTranslator.FromHtml("#007ACC"); // Blue button background
+                    btn.ForeColor = Color.White;                         // White button text
+                    btn.FlatStyle = FlatStyle.Flat;                      // Flat design
+                    btn.FlatAppearance.BorderSize = 0;                   // No border
+                }
+                else if (ctrl is ListBox lst)
+                {
+                    lst.BackColor = ColorTranslator.FromHtml("#2D2D30"); // Same as textbox
+                    lst.ForeColor = ColorTranslator.FromHtml("#CCCCCC");
+                }
+            }
         }
 
 

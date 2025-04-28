@@ -1,4 +1,9 @@
-﻿using System;
+﻿
+
+
+using System;
+using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using FitnessTracker.Models;
 using FitnessTracker.Services;
@@ -10,64 +15,69 @@ namespace FitnessTracker.Views
         public ActivityForm()
         {
             InitializeComponent();
-            SetupForm();
-            SetupPlaceholders();
+            InitializeActivityForm();
+            ApplyDarkTheme();
         }
 
-        private void SetupForm()
+        private void ApplyDarkTheme()
         {
+            this.BackColor = ColorTranslator.FromHtml("#1E1E1E"); // Form Background
+
+            foreach (Control ctrl in this.Controls)
+            {
+                if (ctrl is Label lbl)
+                {
+                    lbl.ForeColor = ColorTranslator.FromHtml("#CCCCCC"); // Light Gray for labels
+                }
+                else if (ctrl is TextBox txt)
+                {
+                    txt.BackColor = ColorTranslator.FromHtml("#2D2D30"); // Dark background
+                    txt.ForeColor = Color.White;                        // White text
+                    txt.TextAlign = HorizontalAlignment.Center;         // Center text (especially placeholders)
+                    txt.BorderStyle = BorderStyle.FixedSingle;           // Neat borders
+                }
+                else if (ctrl is Button btn)
+                {
+                    btn.BackColor = ColorTranslator.FromHtml("#007ACC"); // Blue button background
+                    btn.ForeColor = Color.White;                         // White button text
+                    btn.FlatStyle = FlatStyle.Flat;                      // Flat design
+                    btn.FlatAppearance.BorderSize = 0;                   // No border
+                }
+                else if (ctrl is ListBox lst)
+                {
+                    lst.BackColor = ColorTranslator.FromHtml("#2D2D30"); // Same as textbox
+                    lst.ForeColor = ColorTranslator.FromHtml("#CCCCCC");
+                }
+            }
+        }
+
+        private void InitializeActivityForm()
+        {
+            this.BackColor = Color.FromArgb(30, 30, 30);
+            this.ForeColor = Color.White;
+
             cmbActivityType.Items.AddRange(new string[]
             {
                 "Running", "Yoga", "Swimming", "Weightlifting", "Cycling", "Walking"
             });
             cmbActivityType.SelectedIndexChanged += cmbActivityType_SelectedIndexChanged;
+
             //btnLogActivity.Click += btnLogActivity_Click;
             btnBackToDashboard.Click += btnBackToDashboard_Click;
 
-            // Initial visibility
             ToggleInputs("Walking");
+            SetupPlaceholders();
         }
 
-        private void cmbActivityType_SelectedIndexChanged(object? sender, EventArgs e)
+        private void SetupPlaceholders()
         {
-            string? selected = cmbActivityType.SelectedItem?.ToString();
-            ToggleInputs(selected);
+            SetPlaceholder(txtSteps, "Steps...");
+            SetPlaceholder(txtDistance, "Distance (km)...");
+            SetPlaceholder(txtDuration, "Duration (min)...");
+            SetPlaceholder(txtElevation, "Elevation Gain...");
         }
 
-        private void ToggleInputs(string? selected)
-        {
-            txtSteps.Visible = selected == "Walking";
-            txtDistance.Visible = selected == "Running" || selected == "Cycling";
-            txtElevation.Visible = selected == "Running";
-            txtDuration.Visible = selected == "Yoga" || selected == "Swimming" || selected == "Weightlifting";
-        }
-
-        private void btnLogActivity_Click(object? sender, EventArgs e)
-        {
-            string? activity = cmbActivityType.SelectedItem?.ToString();
-            double.TryParse(txtSteps.Text, out double steps);
-            double.TryParse(txtDistance.Text, out double distance);
-            double.TryParse(txtElevation.Text, out double elevation);
-            double.TryParse(txtDuration.Text, out double duration);
-
-            var calories = CalculateCalories(activity, steps, distance, elevation, duration);
-            lblCalories.Text = $"Calories: {calories:F1}";
-
-            var log = new ActivityLog
-            {
-                ActivityType = activity,
-                Steps = steps,
-                DistanceKm = distance,
-                ElevationGain = elevation,
-                DurationMinutes = duration,
-                CaloriesBurned = calories,
-                Timestamp = DateTime.Now
-            };
-
-            AnalyticsService.AddLog(log);
-            lstActivityLog.Items.Insert(0, $"{log.Timestamp:t} - {log.ActivityType} - {log.CaloriesBurned:F1} kcal");
-        }
-        private static void SetPlaceholder(TextBox box, string placeholder)
+        private void SetPlaceholder(TextBox box, string placeholder)
         {
             box.Text = placeholder;
             box.ForeColor = Color.Gray;
@@ -77,7 +87,7 @@ namespace FitnessTracker.Views
                 if (box.Text == placeholder)
                 {
                     box.Text = "";
-                    box.ForeColor = Color.Black;
+                    box.ForeColor = Color.White;
                 }
             };
 
@@ -90,15 +100,54 @@ namespace FitnessTracker.Views
                 }
             };
         }
-        private void SetupPlaceholders()
+
+        private void ToggleInputs(string? selected)
         {
-            SetPlaceholder(txtSteps, "Enter steps...");
-            SetPlaceholder(txtDistance, "Enter distance in km...");
-            SetPlaceholder(txtElevation, "Enter elevation gain...");
-            SetPlaceholder(txtDuration, "Enter duration in minutes...");
+            txtSteps.Visible = selected == "Walking";
+            txtDistance.Visible = selected == "Running" || selected == "Cycling";
+            txtElevation.Visible = selected == "Running";
+            txtDuration.Visible = selected == "Yoga" || selected == "Swimming" || selected == "Weightlifting";
         }
 
-        private double CalculateCalories(string? activity, double steps, double distance, double elevation, double duration)
+        private void cmbActivityType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string? selected = cmbActivityType.SelectedItem?.ToString();
+            ToggleInputs(selected);
+        }
+
+        private void btnLogActivity_Click(object sender, EventArgs e)
+        {
+            if (cmbActivityType.SelectedItem == null)
+            {
+                MessageBox.Show("Please select an activity type first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            string? activity = cmbActivityType.SelectedItem.ToString();
+            double.TryParse(txtSteps.Text, out double steps);
+            double.TryParse(txtDistance.Text, out double distance);
+            double.TryParse(txtDuration.Text, out double duration);
+            double.TryParse(txtElevation.Text, out double elevation);
+
+            double calories = CalculateCalories(activity, steps, distance, duration, elevation);
+            lblCalories.Text = $"Calories Burned: {calories:F1} kcal";
+
+            var log = new ActivityLog
+            {
+                ActivityType = activity,
+                Steps = steps,
+                DistanceKm = distance,
+                DurationMinutes = duration,
+                ElevationGain = elevation,
+                CaloriesBurned = calories,
+                Timestamp = DateTime.Now
+            };
+
+            AnalyticsService.AddLog(log);
+            lstActivityLog.Items.Insert(0, $"{log.Timestamp:t} - {log.ActivityType} - {log.CaloriesBurned:F1} kcal");
+        }
+
+        private double CalculateCalories(string? activity, double steps, double distance, double duration, double elevation)
         {
             return activity switch
             {
@@ -112,13 +161,11 @@ namespace FitnessTracker.Views
             };
         }
 
-
-
-        private void btnBackToDashboard_Click(object? sender, EventArgs e)
+        private void btnBackToDashboard_Click(object sender, EventArgs e)
         {
-           
-            var dash = new DashboardForm(); 
-            dash.Show();
+
+            DashboardForm dashB = new();
+            dashB.Show();
             this.Hide();
         }
     }
