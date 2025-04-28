@@ -1,74 +1,108 @@
-# Fitness Tracker - Windows Forms Application
+# Fitness Tracker Application
 
 ## Overview
 
-The Fitness Tracker is a simple Windows desktop application built using **C#** and **Windows Forms** (.NET 8).  
-It allows users to **register an account**, **log in**, **track their fitness activities**, and **set daily calorie goals**.  
-The app also provides **basic analytics** for calories burned and activity breakdown.
+This is a C# Windows Forms desktop application that allows users to:
+
+- Register an account
+- Log in securely
+- Set daily calorie goals
+- Log various physical activities (Running, Walking, Cycling, Yoga, etc.)
+- Track calories burned
+- See breakdown of activities and analytics
+- Update their nickname
+- View random fitness tips on the dashboard
+
+The application was developed using:
+
+- Visual Studio 2022 Community Edition
+- .NET 8.0 Windows Forms
+- C# programming language
 
 ---
 
 ## Features
 
-- User Registration and Login
-- Placeholder system for better user experience in input fields
-- Dynamic Activity Logging (Running, Swimming, Walking, etc.)
-- Calorie Burn Calculation based on selected activity and input
-- Dashboard Overview:
-  - Daily Calorie Goal
-  - Total Calories Burned
-  - Recent Activities List
-  - Activity Breakdown
-- Goal Reset Functionality
-- Navigation between pages (Login ➔ Register ➔ Dashboard ➔ Activity Logging)
-- Basic input validation and simple error handling
+- **User Authentication:** Register and login system with validation.
+- **Activity Logging:** Users can log activities with smart inputs that adapt based on selected activity.
+- **Calorie Tracking:** Calculates calories burned based on activity type.
+- **Analytics Dashboard:** Displays total calories burned, daily goals, and recent activities.
+- **Random Fitness Tips:** Dashboard shows random motivational health tips.
+- **Update Nickname:** Users can personalize their profile by updating their nickname.
+- **Dark Theme:** Application features a clean dark theme for a modern UI look.
+- **Reset Goals:** Users can change and update their daily calorie goals anytime.
 
 ---
 
 ## Technologies Used
 
-- **Visual Studio 2022 Community Edition**
-- **C# (.NET 8, Windows Forms App)**
-- **Windows Forms Controls** (Buttons, Labels, TextBoxes, ComboBoxes, ListBox)
+- C# .NET 8.0
+- Windows Forms
+- Git for version control
+- Visual Studio 2022 Community Edition
 
 ---
 
-## How to Build and Run
+## Installation and Running
 
-1. Clone or download the project repository.
-2. Open the `.sln` file with **Visual Studio 2022**.
-3. Make sure you have `.NET 8.0 SDK` installed.
-4. Build the solution (`Ctrl+Shift+B`).
-5. Run the application (`F5`).
+1. Clone the repository:
 
----
+   ```bash
+   git clone https://github.com/your-username/fitness-tracker.git
+   ```
 
-## Folder Structure
+2. Open the solution `.sln` file with Visual Studio 2022.
 
-```
-/Models         --> Contains classes like User.cs and ActivityLog.cs
-/Services       --> Contains business logic like UserService.cs and AnalyticsService.cs
-/Views          --> Contains forms like LoginForm, RegisterForm, DashboardForm, ActivityForm
-FitnessTracker.sln
-Program.cs
+3. Restore any missing NuGet packages if necessary.
 
+4. Build the solution (`Ctrl + Shift + B`) to ensure there are no errors.
 
-![folder structure](image.png)
-```
+5. Press `F5` to run the application!
 
 ---
 
-## Known Challenges
+## File Structure
 
-- Originally started the project using AvaloniaUI in VS Code, later rebuilt in Windows Forms as per lecturer’s instruction.
-- Faced project file corruption issues after unexpected shutdown (resolved by creating a fresh project and migrating code).
-- Some UI limitations due to the basic design capabilities of WinForms compared to modern frameworks.
-- Encountered file lock issues during builds, resolved by restarting the PC.
-- Switched between manual UI design and Drag-and-Drop designer balancing speed vs control.
+FitnessTracker/
+├── Models/
+├── User.cs
+│ └── ActivityLog.cs │ ├── Services/ │ ├── UserService.cs │ └── AnalyticsService.cs │ ├── Views/ │ ├── LoginForm.cs │ ├── RegisterForm.cs │ ├── DashboardForm.cs │ └── ActivityForm.cs │ ├── Helpers/ │ └── (e.g., PlaceholderHelper.cs if any) │ ├── Program.cs ├── FitnessTracker.csproj └──
 
 ---
 
-## Credits
+## Known Challenges Faced During Development
 
-Developed by **Egede Ubeath Solomon**  
-Course Assignment - Fitness Tracking Desktop Application
+- Handling dynamic UI updates (e.g., activity-specific inputs).
+- Avoiding multiple forms staying open (fixed using `.Close()` on previous forms).
+- File locking errors when rebuilding (resolved by closing processes properly).
+- Handling nullable issues with newer C# versions.
+
+---
+
+## Testing
+
+Testing involved:
+
+- Manual validation of login and registration flow.
+- Testing activity logging for all activity types.
+- Verifying calories and goal tracking update correctly.
+- Confirming dark theme applied across all forms.
+
+Screenshots showing successful tests are attached in the documentation folder.
+
+---
+
+## Future Improvements
+
+- User profile management
+- More detailed analytics charts
+- Password encryption for improved security
+- Better mobile responsiveness
+
+---
+
+## Author
+
+Egede Ubeath Solomon
+
+---
