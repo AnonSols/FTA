@@ -128,10 +128,10 @@
             LblLoginLink.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             LblLoginLink.Location = new Point(472, 388);
             LblLoginLink.Name = "LblLoginLink";
-            LblLoginLink.Size = new Size(54, 17);
+            LblLoginLink.Size = new Size(49, 17);
             LblLoginLink.TabIndex = 11;
             LblLoginLink.TabStop = true;
-            LblLoginLink.Text = "Sign up";
+            LblLoginLink.Text = "Sign in";
             LblLoginLink.LinkClicked += LblLoginLink_LinkClicked;
             // 
             // label4

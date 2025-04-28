@@ -31,7 +31,7 @@
             btnUpdateGoal = new Button();
             btnLogActivity = new Button();
             lblTips = new Label();
-            button1 = new Button();
+            BtnLogOut = new Button();
             SuspendLayout();
             // 
             // lblNickname
@@ -96,7 +96,7 @@
             // 
             btnLogActivity.Location = new Point(30, 318);
             btnLogActivity.Name = "btnLogActivity";
-            btnLogActivity.Size = new Size(184, 30);
+            btnLogActivity.Size = new Size(184, 38);
             btnLogActivity.TabIndex = 6;
             btnLogActivity.Text = "Log Activity";
             btnLogActivity.UseVisualStyleBackColor = true;
@@ -112,19 +112,20 @@
             lblTips.TabIndex = 7;
             lblTips.Text = "Random Tip here!";
             // 
-            // button1
+            // BtnLogOut
             // 
-            button1.Location = new Point(246, 318);
-            button1.Name = "button1";
-            button1.Size = new Size(184, 30);
-            button1.TabIndex = 8;
-            button1.Text = "Log out";
-            button1.UseVisualStyleBackColor = true;
+            BtnLogOut.Location = new Point(271, 318);
+            BtnLogOut.Name = "BtnLogOut";
+            BtnLogOut.Size = new Size(168, 38);
+            BtnLogOut.TabIndex = 8;
+            BtnLogOut.Text = "Log out";
+            BtnLogOut.UseVisualStyleBackColor = true;
+            BtnLogOut.Click += BtnLogOut_Click;
             // 
             // DashboardForm
             // 
             ClientSize = new Size(500, 450);
-            Controls.Add(button1);
+            Controls.Add(BtnLogOut);
             Controls.Add(lblNickname);
             Controls.Add(lblGoal);
             Controls.Add(lblCalories);
@@ -139,5 +140,6 @@
             PerformLayout();
         }
         private Button button1;
+        private Button BtnLogOut;
     }
 }

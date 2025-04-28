@@ -72,7 +72,7 @@ namespace FitnessTracker.Views
 
         private void BtnLogActivity_Click(object sender, EventArgs e)
         {
-           
+
             var activityForm = new ActivityForm();
             activityForm.Show();
             this.Hide();
@@ -82,7 +82,7 @@ namespace FitnessTracker.Views
         {
 
             LoginForm login = new LoginForm();
-                login.Show();
+            login.Show();
             this.Hide();
         }
 
